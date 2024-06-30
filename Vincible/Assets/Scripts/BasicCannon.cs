@@ -28,12 +28,12 @@ public class BasicCannon : MonoBehaviour
                 SpawnProjectile();
                 _fireTimer = 1.0f / FireRate;
             }
-
         }
+
     }
 
     void SpawnProjectile()
     {
-        var projectile = GameObject.Instantiate(Projectile, transform.position, Quaternion.identity);
+        var projectile = GameObject.Instantiate(Projectile, this.transform.position,this.transform.rotation);
     }
 }

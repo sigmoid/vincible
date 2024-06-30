@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float Lifetime = 1.0f;
 
-    public Vector3 Direction = Vector3.up;
+    public float Damage = 1;
 
     public float Velocity = 10;
 
@@ -26,6 +26,13 @@ public class Projectile : MonoBehaviour
         if (_timer <= 0)
             Destroy(this.gameObject);
 
-        transform.position += Direction * Velocity * Time.deltaTime;
+        transform.position += transform.up * Velocity * Time.deltaTime;
     }
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+        collision.gameObject.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
+
+        Destroy(this.gameObject);
+	}
 }

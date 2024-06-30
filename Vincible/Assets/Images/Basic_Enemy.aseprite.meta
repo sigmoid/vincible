@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ab3a15aa2456faa4e8964ea122bc5762
+guid: 4264c3a420a411643acd878733f351fa
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Basic_Projectile
+  - name: Basic_Enemy
     originalName: 
-    pivot: {x: 0.5, y: -0.3}
+    pivot: {x: 0.5, y: -0.0625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 8
-      height: 10
-    spriteID: 36c490920e4eccc418821be59c8a6ce4
+      width: 48
+      height: 48
+    spriteID: 46217532dfb5bbe47b6f7f2b1bdf803f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,25 +144,25 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1878029578
-    name: Basic_Projectile
+    guid: -1347140761
+    name: Basic_Enemy
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Basic_Projectile
+    - name: Basic_Enemy
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 4
+        x: 8
         y: 3
-        width: 8
-        height: 10
-      spriteId: 36c490920e4eccc418821be59c8a6ce4
+        width: 48
+        height: 48
+      spriteId: 46217532dfb5bbe47b6f7f2b1bdf803f
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
+  canvasSize: {x: 64, y: 64}
