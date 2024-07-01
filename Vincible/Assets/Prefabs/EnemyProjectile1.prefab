@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7fb510de61ac24eab6e636c31fcc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathParticles: {fileID: 0}
   Lifetime: 5
   Damage: 1
   Velocity: 10
@@ -111,7 +112,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &3343656425787184665
 GameObject:
   m_ObjectHideFlags: 0

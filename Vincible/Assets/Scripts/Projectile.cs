@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public GameObject DeathParticles;
+
     public float Lifetime = 1.0f;
 
     public float Damage = 1;
@@ -32,7 +34,7 @@ public class Projectile : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
         collision.gameObject.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
-
+        Instantiate(DeathParticles, transform.position, transform.rotation);
         Destroy(this.gameObject);
 	}
 }

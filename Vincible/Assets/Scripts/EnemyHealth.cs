@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public GameObject DeathObject;
+
     public int StartHealth;
 
     private int _health;
@@ -25,6 +27,12 @@ public class EnemyHealth : MonoBehaviour
         _health -= damage;
 
         if (_health <= 0)
+        {
+            if (DeathObject != null)
+            {
+                Instantiate(DeathObject, transform.position, transform.rotation);
+            }
             Destroy(this.gameObject);
+        }
     }
 }
