@@ -34,7 +34,10 @@ public class Projectile : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
         collision.gameObject.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
-        Instantiate(DeathParticles, transform.position, transform.rotation);
+
+        if(DeathParticles != null)
+           Instantiate(DeathParticles, transform.position, transform.rotation);
+
         Destroy(this.gameObject);
 	}
 }

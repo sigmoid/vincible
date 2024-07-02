@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SteadyCannon : MonoBehaviour
+public class RadialCannon : MonoBehaviour
 {
     public GameObject Projectile;
+
+	public float NumProjectiles;
 
     public float FireRate;
 
@@ -36,6 +38,10 @@ public class SteadyCannon : MonoBehaviour
 
 	void SpawnProjectile()
 	{
-		GameObject.Instantiate(Projectile, this.transform.position, this.transform.rotation);
+		for (int i = 0; i < NumProjectiles; i++)
+		{
+			var rotation = Quaternion.AngleAxis(90.0f + (float)i * (180.0f/(float)(NumProjectiles - 1)), Vector3.forward);
+			GameObject.Instantiate(Projectile, this.transform.position, rotation);
+		}
 	}
 }

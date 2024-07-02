@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad77ea1d0c9cc7e42ab7ec6ad865de33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartHealth: 1
+  DeathObject: {fileID: 5689415661738850269, guid: a2c93f2621d77e445a7a649bae1488e5, type: 3}
+  StartHealth: 10
 --- !u!114 &8311887321637121970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2250962504686281025, guid: 6cc65cac0decd9d4285bce555b343cdf, type: 3}
-  BurstRate: 0.7
+  BurstRateMin: 0.2
+  BurstRateMax: 1
   BurstDuration: 0.2
   FireRate: 20

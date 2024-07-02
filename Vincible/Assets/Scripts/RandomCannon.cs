@@ -10,16 +10,22 @@ public class RandomCannon : MonoBehaviour
 
     private float _timer;
 
+    private CannonUtils _utils;
+
     // Start is called before the first frame update
     void Start()
     {
         ResetTimer();
+        _utils = FindObjectOfType<CannonUtils>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_timer > 0)
+		if (_utils != null && _utils.CanFireCannon(this.transform) != true)
+			return;
+
+		if (_timer > 0)
         {
             _timer -= Time.deltaTime;
 

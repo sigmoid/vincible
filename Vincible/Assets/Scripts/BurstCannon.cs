@@ -6,7 +6,8 @@ public class BurstCannon : MonoBehaviour
 {
     public GameObject Projectile;
 
-	public float BurstRate;
+	public float BurstRateMin;
+	public float BurstRateMax;
 	public float BurstDuration;
 
     public float FireRate;
@@ -15,15 +16,22 @@ public class BurstCannon : MonoBehaviour
 	private float _burstTimer;
 	private float _burstDurationTimer;
 
+	private CannonUtils _utils;
+
     // Start is called before the first frame update
     void Start()
     {
-		_burstTimer = 1.0f / BurstRate;
+		SetBurstTimer();
+
+		_utils = FindObjectOfType<CannonUtils>();
     }
 
     // Update is called once per frame
     void Update()
     {
+		if (_utils != null && _utils.CanFireCannon(this.transform) != true)
+			return;
+
 		if (_burstTimer > 0)
 		{
 			_burstTimer -= Time.deltaTime;
@@ -36,7 +44,7 @@ public class BurstCannon : MonoBehaviour
 			if (_burstDurationTimer > 0)
 				_burstDurationTimer -= Time.deltaTime;
 			else
-				_burstTimer = 1.0f / BurstRate;
+				SetBurstTimer();
 
 			if (_fireTimer > 0)
 				_fireTimer -= Time.deltaTime;
@@ -47,6 +55,11 @@ public class BurstCannon : MonoBehaviour
 				_fireTimer = 1.0f / FireRate;
 			}
 		}
+	}
+
+	void SetBurstTimer()
+	{
+		_burstTimer = 1.0f / Random.Range(BurstRateMin, BurstRateMax);
 	}
 
 	void SpawnProjectile()

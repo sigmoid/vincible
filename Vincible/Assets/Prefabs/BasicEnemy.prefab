@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7440875083100232731}
-  - component: {fileID: 6001206939921604577}
+  - component: {fileID: 5653840497846189673}
   m_Layer: 8
   m_Name: Cannon
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2382621830229358383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
---- !u!114 &6001206939921604577
+--- !u!114 &5653840497846189673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,12 +125,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 596353087361999618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a475963c02b6dc4196efbba955fdf0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b9733dc146ed50438df43434002525d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2250962504686281025, guid: 6cc65cac0decd9d4285bce555b343cdf, type: 3}
-  MinRate: 0.5
-  MaxRate: 2
+  NumProjectiles: 7
+  FireRate: 1
 --- !u!1 &7087143973234378310
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,4 +228,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathObject: {fileID: 5689415661738850269, guid: d8e6e34a4afb86c4287b2fdbc9d300e6, type: 3}
-  StartHealth: 10
+  StartHealth: 20
