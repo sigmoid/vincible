@@ -40,8 +40,10 @@ public class WaveSpawner : MonoBehaviour
     {
         var selectedWave = Waves[Random.Range(0, Waves.Length)];
 
-        Destroy(PrevWave);
-
+        if (PrevWave)
+        {
+            Destroy(PrevWave);
+        }
         PrevWave = CurrentWave;
 
         CurrentWave = Instantiate(selectedWave, transform.position, Quaternion.identity);

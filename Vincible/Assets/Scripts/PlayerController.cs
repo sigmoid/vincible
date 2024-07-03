@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public float LateralSpeed = 10;
     public float VerticalSpeed = 10;
 
+    public float MaxX, MaxY;
+
     public Sprite BankRightSprite, BankLeftSprite;
     public Sprite[] DefaultAnimationSprites;
     public float DefaultAnimationFramerate;
@@ -30,7 +32,17 @@ public class PlayerController : MonoBehaviour
     {
         var moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        moveInput.Normalize();
+        if (transform.position.x > MaxX && moveInput.x > 0)
+            moveInput.x = 0;
+		if (transform.position.x < -MaxX && moveInput.x < 0)
+			moveInput.x = 0;
+		if (transform.position.y > MaxY && moveInput.y > 0)
+			moveInput.y = 0;
+		if (transform.position.y < -MaxY && moveInput.y < 0)
+			moveInput.y = 0;
+
+
+		moveInput.Normalize();
 
         var moveAmount = new Vector3(moveInput.x * LateralSpeed, moveInput.y * VerticalSpeed, 0);
 

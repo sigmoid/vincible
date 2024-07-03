@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 7366252238172260438}
   - component: {fileID: 5311889968241363422}
   - component: {fileID: 7280814023660104840}
+  - component: {fileID: 3665228976825977392}
   m_Layer: 8
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -229,3 +230,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathObject: {fileID: 5689415661738850269, guid: d8e6e34a4afb86c4287b2fdbc9d300e6, type: 3}
   StartHealth: 20
+  ScoreValue: 200
+--- !u!114 &3665228976825977392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7087143973234378310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2002d7984afc8c14ca8f5b80bf5ef872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 7485786640026360234, guid: 3de137199ecac4f45bb603c1ded7e0cb, type: 3}
+  DropChance: 0.5

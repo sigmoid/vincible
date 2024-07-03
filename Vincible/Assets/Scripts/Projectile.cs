@@ -33,11 +33,14 @@ public class Projectile : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-        collision.gameObject.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
 
-        if(DeathParticles != null)
-           Instantiate(DeathParticles, transform.position, transform.rotation);
+        if (!collision.gameObject.CompareTag("BulletKill"))
+        {
+            collision.gameObject.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
 
+            if (DeathParticles != null)
+                Instantiate(DeathParticles, transform.position, transform.rotation);
+        }
         Destroy(this.gameObject);
 	}
 }

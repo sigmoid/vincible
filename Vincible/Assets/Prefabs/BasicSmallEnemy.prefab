@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathObject: {fileID: 5689415661738850269, guid: a2c93f2621d77e445a7a649bae1488e5, type: 3}
   StartHealth: 10
+  ScoreValue: 50
 --- !u!114 &8311887321637121970
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
 
     public int StartHealth;
 
+    public int ScoreValue = 0;
+
     private int _health;
 
     // Start is called before the first frame update
@@ -32,6 +34,21 @@ public class EnemyHealth : MonoBehaviour
             {
                 Instantiate(DeathObject, transform.position, transform.rotation);
             }
+
+            var scoreManager = FindObjectOfType<ScoreManager>();
+
+            if (scoreManager != null)
+            {
+                scoreManager.AddScore(ScoreValue);
+            }
+
+            var dropItem = GetComponent<DropItem>();
+
+            if (dropItem != null)
+            {
+                dropItem.TrySpawn();
+            }
+
             Destroy(this.gameObject);
         }
     }
