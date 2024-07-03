@@ -85,7 +85,7 @@ MonoBehaviour:
   DeathParticles: {fileID: 0}
   Lifetime: 5
   Damage: 1
-  Velocity: 10
+  Velocity: 6.5
 --- !u!50 &1641153331425782923
 Rigidbody2D:
   serializedVersion: 4
@@ -94,7 +94,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2250962504686281025}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
