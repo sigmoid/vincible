@@ -81,4 +81,10 @@ public class PlayerHealth : MonoBehaviour
             _invincibilityTimer = InvincibilityDuration;
         }
     }
+
+    public int GetCurrentHealth()
+    {
+        Debug.Log(_health);
+        return _health;
+    }
 }

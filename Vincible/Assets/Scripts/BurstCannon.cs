@@ -21,7 +21,7 @@ public class BurstCannon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		SetBurstTimer();
+		_burstTimer = Random.Range(0, 1.0f / BurstRateMax);
 
 		_utils = FindObjectOfType<CannonUtils>();
     }

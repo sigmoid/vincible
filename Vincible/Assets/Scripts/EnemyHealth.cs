@@ -10,23 +10,42 @@ public class EnemyHealth : MonoBehaviour
 
     public int ScoreValue = 0;
 
+    public float FlashDuration = 0.05f;
+
     private int _health;
+
+    private float _flashTimer;
+
+    private SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         _health = StartHealth;
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_flashTimer > 0)
+        {
+            _flashTimer -= Time.deltaTime;
 
+            _spriteRenderer.color = new Color(1, 1, 1, 0.2f);
+
+            if (_flashTimer <= 0)
+            {
+                _spriteRenderer.color = Color.white;
+            }
+        }
     }
 
     public void Hit(int damage)
     {
         _health -= damage;
+
+
 
         if (_health <= 0)
         {
@@ -51,5 +70,10 @@ public class EnemyHealth : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+        else
+        {
+            _flashTimer = FlashDuration;
+
+		}
     }
 }

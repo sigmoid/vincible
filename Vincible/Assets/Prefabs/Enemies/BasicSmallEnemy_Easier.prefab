@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 781702312656157493}
   - component: {fileID: 8311887321637121970}
   m_Layer: 8
-  m_Name: BasicSmallEnemy
+  m_Name: BasicSmallEnemy_Easier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathObject: {fileID: 5689415661738850269, guid: a2c93f2621d77e445a7a649bae1488e5, type: 3}
-  StartHealth: 10
+  StartHealth: 15
   ScoreValue: 50
+  FlashDuration: 0.05
 --- !u!114 &8311887321637121970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2250962504686281025, guid: 6cc65cac0decd9d4285bce555b343cdf, type: 3}
-  BurstRateMin: 0.2
-  BurstRateMax: 1
+  BurstRateMin: 0.125
+  BurstRateMax: 0.6
   BurstDuration: 0.2
-  FireRate: 20
+  FireRate: 10

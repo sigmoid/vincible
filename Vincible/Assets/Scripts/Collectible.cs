@@ -20,7 +20,6 @@ public class Collectible : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-        Debug.Log("fasdfasdoifjasodifjasd");
         var scoreManager = FindObjectOfType<ScoreManager>();
 
         if (scoreManager != null)
