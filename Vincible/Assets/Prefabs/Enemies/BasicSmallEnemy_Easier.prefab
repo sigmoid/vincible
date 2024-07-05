@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathObject: {fileID: 5689415661738850269, guid: a2c93f2621d77e445a7a649bae1488e5, type: 3}
-  StartHealth: 15
+  StartHealth: 9
   ScoreValue: 50
   FlashDuration: 0.05
 --- !u!114 &8311887321637121970

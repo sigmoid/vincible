@@ -25,6 +25,8 @@ public class WaveSpawner : MonoBehaviour
 
     private int NumRounds = 2;
 
+    private int _lastWaveId = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +55,14 @@ public class WaveSpawner : MonoBehaviour
     {
         var round = Rounds[_currentRoundIndex];
 
-		var selectedWave = round[Random.Range(0, round.Length)];
+        int nextId = Random.Range(0, round.Length);
+
+        while (nextId == _lastWaveId)
+            nextId = Random.Range(0, round.Length);
+
+        _lastWaveId = nextId;
+
+		var selectedWave = round[nextId];
 
         if (PrevWave)
         {
@@ -68,7 +77,10 @@ public class WaveSpawner : MonoBehaviour
         if (_roundTimer <= 0)
         {
             _currentRoundIndex++;
-            Mathf.Min(_currentRoundIndex, NumRounds);
+            Debug.Log("NEW WAVE: " + _currentRoundIndex);
+            _currentRoundIndex = Mathf.Min(_currentRoundIndex, NumRounds);
+            _lastWaveId = -1;
+            _roundTimer = WavesPerRound;
         }
     }
 

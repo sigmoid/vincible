@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float LateralSpeed = 10;
-    public float VerticalSpeed = 10;
+    public float LateralSpeed = 18;
+    public float VerticalSpeed = 18;
 
     public float MaxX, MaxY;
+
+    public float FireMoveModifier = 0.5f;
 
     public Sprite BankRightSprite, BankLeftSprite;
     public Sprite[] DefaultAnimationSprites;
@@ -44,7 +46,14 @@ public class PlayerController : MonoBehaviour
 
 		moveInput.Normalize();
 
-        var moveAmount = new Vector3(moveInput.x * LateralSpeed, moveInput.y * VerticalSpeed, 0);
+        var modifier = 1.0f;
+
+        if (Input.GetButton("Fire1"))
+        {
+            modifier *= FireMoveModifier;
+        }
+
+        var moveAmount = new Vector3(moveInput.x * LateralSpeed * modifier, moveInput.y * VerticalSpeed * modifier, 0);
 
         _rigidbody.velocity = moveAmount;
 

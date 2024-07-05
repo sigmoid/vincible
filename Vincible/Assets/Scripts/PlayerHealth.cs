@@ -84,7 +84,6 @@ public class PlayerHealth : MonoBehaviour
 
     public int GetCurrentHealth()
     {
-        Debug.Log(_health);
         return _health;
     }
 }
