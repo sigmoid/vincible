@@ -1,0 +1,24 @@
+At the GAME LAB today
+
+Things to do
+
+- More more wave patterns
+  - Really I need to add a ton of these
+
+- Player powerups
+  - When player gets powerup, there is a flash onscreen with text saying what it is
+  - Possible powerup, bigger spread more damage
+  - Possible powerup, screen wipe burst thing
+  
+- Scoreboard
+  - Submit score
+  - Get Scores
+  - Just save to file on disk for now
+
+- Menu
+  - Tutorial
+
+- Coins or some shit
+  - everything drops coins
+
+-  Boss Fight

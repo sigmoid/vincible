@@ -5037,5 +5037,5 @@ MonoBehaviour:
   DeathParticles: {fileID: 5689415661738850269, guid: d8e6e34a4afb86c4287b2fdbc9d300e6, type: 3}
   Lifetime: 2
   Damage: 1
-  Velocity: 10
-  RotateSpeed: 0.05
+  Velocity: 7
+  RotateSpeed: 0.025

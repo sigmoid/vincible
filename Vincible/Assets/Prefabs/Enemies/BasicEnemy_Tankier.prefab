@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2250962504686281025, guid: 6cc65cac0decd9d4285bce555b343cdf, type: 3}
   NumProjectiles: 6
-  FireRate: 1
+  FireRate: 0.8
 --- !u!1 &7087143973234378310
 GameObject:
   m_ObjectHideFlags: 0

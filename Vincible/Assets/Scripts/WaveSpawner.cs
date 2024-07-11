@@ -7,6 +7,9 @@ public class WaveSpawner : MonoBehaviour
     public GameObject[] Round1;
     public GameObject[] Round2;
 
+    public GameObject RoundCanvas;
+    public TMPro.TMP_Text RoundText;
+
     public int WavesPerRound = 10;
 
     public float ScrollSpeed = 1.8f;
@@ -27,6 +30,10 @@ public class WaveSpawner : MonoBehaviour
 
     private int _lastWaveId = -1;
 
+    private float _betweenWaveTimer;
+
+    private const float BETWEEN_WAVE_DURATION = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +46,16 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_spawnTimer > 0)
+        if(_betweenWaveTimer > 0)
+        {
+            _betweenWaveTimer -= Time.deltaTime;
+            if(_betweenWaveTimer <= 0)
+            {
+                RoundCanvas.SetActive(false);
+                _betweenWaveTimer = 0;
+            }
+        }
+        else if (_spawnTimer > 0)
         {
             _spawnTimer -= Time.deltaTime;
 
@@ -54,10 +70,26 @@ public class WaveSpawner : MonoBehaviour
     void SpawnWave()
     {
         var round = Rounds[_currentRoundIndex];
+        _roundTimer--;
+
+        if (_roundTimer <= 0)
+        {
+            _betweenWaveTimer = BETWEEN_WAVE_DURATION;
+            _currentRoundIndex++;
+            RoundCanvas.SetActive(true);
+            int newRound = _currentRoundIndex + 1;
+            RoundText.text = "Round " + newRound;
+            Debug.Log("NEW WAVE: " + _currentRoundIndex);
+            _currentRoundIndex = Mathf.Min(_currentRoundIndex, NumRounds);
+            _lastWaveId = -1;
+            _roundTimer = WavesPerRound;
+            _spawnTimer = 0.1f;
+            return;
+        }
 
         int nextId = Random.Range(0, round.Length);
 
-        while (nextId == _lastWaveId)
+        while (nextId == _lastWaveId && round.Length > 1)
             nextId = Random.Range(0, round.Length);
 
         _lastWaveId = nextId;
@@ -71,17 +103,6 @@ public class WaveSpawner : MonoBehaviour
         PrevWave = CurrentWave;
 
         CurrentWave = Instantiate(selectedWave, transform.position, Quaternion.identity);
-
-        _roundTimer--;
-
-        if (_roundTimer <= 0)
-        {
-            _currentRoundIndex++;
-            Debug.Log("NEW WAVE: " + _currentRoundIndex);
-            _currentRoundIndex = Mathf.Min(_currentRoundIndex, NumRounds);
-            _lastWaveId = -1;
-            _roundTimer = WavesPerRound;
-        }
     }
 
     void ResetTimer()
