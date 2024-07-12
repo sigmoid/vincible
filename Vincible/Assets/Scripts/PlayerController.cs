@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -51,6 +52,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             modifier *= FireMoveModifier;
+        }
+
+        if(Input.GetButtonDown("Fire2"))
+        {
+            FindObjectOfType<PowerupManager>().ConsumePowerup();
         }
 
         var moveAmount = new Vector3(moveInput.x * LateralSpeed * modifier, moveInput.y * VerticalSpeed * modifier, 0);

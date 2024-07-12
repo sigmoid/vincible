@@ -22,3 +22,8 @@ Things to do
   - everything drops coins
 
 -  Boss Fight
+
+
+- Super easy first round
+
+- Flash or negate or zoom or something during the screen clear effect

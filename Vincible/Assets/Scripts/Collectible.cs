@@ -27,6 +27,8 @@ public class Collectible : MonoBehaviour
             scoreManager.AddScore(ScoreAmount);
         }
 
+        FindObjectOfType<PowerupManager>().CollectPowerup();
+
 		Destroy(this.gameObject);
 	}
 }
