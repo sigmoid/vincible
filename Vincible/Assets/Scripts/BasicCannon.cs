@@ -19,7 +19,7 @@ public class BasicCannon : MonoBehaviour
     void Update()
     {
         if(_fireTimer > 0)
-            _fireTimer -= Time.deltaTime;
+            _fireTimer -= Time.unscaledDeltaTime;
 
         if (Input.GetButton("Fire1"))
         {

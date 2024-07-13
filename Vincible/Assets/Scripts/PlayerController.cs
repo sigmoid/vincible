@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         var moveAmount = new Vector3(moveInput.x * LateralSpeed * modifier, moveInput.y * VerticalSpeed * modifier, 0);
 
-        _rigidbody.velocity = moveAmount;
+        _rigidbody.MovePosition(transform.position + moveAmount * Time.fixedUnscaledDeltaTime);
 
         UpdateSprite();
     }
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     void UpdateSprite()
     {
         float frameDuration = 1.0f / DefaultAnimationFramerate;
-        _currentAnimationFrame = Mathf.RoundToInt(Time.time / frameDuration) % DefaultAnimationSprites.Length;
+        _currentAnimationFrame = Mathf.RoundToInt(Time.unscaledTime / frameDuration) % DefaultAnimationSprites.Length;
         if (_rigidbody.velocity.x < -VELOCITY_DEAD_ZONE)
             _spriteRenderer.sprite = BankLeftSprite;
         else if (_rigidbody.velocity.x > VELOCITY_DEAD_ZONE)

@@ -9,9 +9,11 @@ public class PowerupManager : MonoBehaviour
     public GameObject Popup;
     public TMP_Text PopupText;
 
+    public Material ScreenEffectMaterial;
+
     private int _powerupCount = 0;
 
-    private const float POPUP_DURATION =0.125f;
+    private const float POPUP_DURATION =4.0f;
     private float _timer;
 
     // Start is called before the first frame update
@@ -30,7 +32,7 @@ public class PowerupManager : MonoBehaviour
             if(_timer<=0)
             {
                 Time.timeScale = 1;
-                ScreenWipe();
+                ScreenEffectMaterial.SetInt("_isActive", 0);
                 Popup.SetActive(false);
             }
         }   
@@ -51,9 +53,10 @@ public class PowerupManager : MonoBehaviour
             PowerupText.text = "x " + _powerupCount.ToString();
             _timer=POPUP_DURATION;
             Popup.SetActive(true);
-            FindObjectOfType<NegateEffect>().enabled = true;
             PopupText.text = "!!!";
-            Time.timeScale = 0.0f;
+            FindObjectOfType<PlayerHealth>().StartInvincibility(POPUP_DURATION + 1.0f);
+            Time.timeScale = 0.3f;
+            ScreenEffectMaterial.SetInt("_isActive", 1);
             return true;
         }
         return false;

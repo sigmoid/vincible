@@ -10,6 +10,7 @@ public class NegateEffect : MonoBehaviour
     {
         if (EffectMaterial != null)
         {
+            Debug.Log("ASHFASDH");
             Graphics.Blit(src, dest, EffectMaterial);
         }
         else

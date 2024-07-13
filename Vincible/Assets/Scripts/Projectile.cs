@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
 
     private float _timer;
 
+    public bool UseScaledTime = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,12 +25,14 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _timer -= Time.deltaTime;
+        var delta = (UseScaledTime) ? Time.deltaTime : Time.unscaledDeltaTime;
+     
+        _timer -= delta;
 
         if (_timer <= 0)
             Destroy(this.gameObject);
 
-        transform.position += transform.up * Velocity * Time.deltaTime;
+        transform.position += transform.up * Velocity * delta;
     }
 
 	private void OnCollisionEnter2D(Collision2D collision)

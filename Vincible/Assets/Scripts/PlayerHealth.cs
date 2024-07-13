@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 	{
 		if (_invincibilityTimer >= 0)
 		{
-			_invincibilityTimer -= Time.deltaTime;
+			_invincibilityTimer -= Time.unscaledDeltaTime;
 
 			if (_playerSpriteRenderer != null)
 			{
@@ -82,6 +82,10 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void StartInvincibility(float duration)
+    {
+        _invincibilityTimer = duration;
+    }
     public int GetCurrentHealth()
     {
         return _health;

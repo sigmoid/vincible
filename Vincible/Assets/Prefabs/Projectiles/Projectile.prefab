@@ -86,6 +86,7 @@ MonoBehaviour:
   Lifetime: 5
   Damage: 1
   Velocity: 30
+  UseScaledTime: 0
 --- !u!50 &1641153331425782923
 Rigidbody2D:
   serializedVersion: 4

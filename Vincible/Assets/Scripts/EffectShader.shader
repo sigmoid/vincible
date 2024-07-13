@@ -1,9 +1,8 @@
-Shader "Hidden/NegateShader"
+Shader "Hidden/EffectShader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _isActive ("Is Active", int) = 0
     }
     SubShader
     {
@@ -39,18 +38,12 @@ Shader "Hidden/NegateShader"
             }
 
             sampler2D _MainTex;
-            int _isActive;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-
-                if(_isActive > 0){
-                    // just invert the colors
-                    col.rgb = 1 - col.rgb;
-                }
-
-
+                // just invert the colors
+                col.rgb = 1 - col.rgb;
                 return col;
             }
             ENDCG
