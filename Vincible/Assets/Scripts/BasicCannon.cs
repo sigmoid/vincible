@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class BasicCannon : MonoBehaviour
 {
     public GameObject Projectile;
     public float FireRate;
+
+    private bool _inputFrozen;
 
     private float _fireTimer;
 
@@ -18,6 +21,9 @@ public class BasicCannon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_inputFrozen)
+            return;
+
         if(_fireTimer > 0)
             _fireTimer -= Time.unscaledDeltaTime;
 
@@ -30,6 +36,11 @@ public class BasicCannon : MonoBehaviour
             }
         }
 
+    }
+
+    public void FreezeInput()
+    {
+        _inputFrozen = true;
     }
 
     void SpawnProjectile()

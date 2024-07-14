@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -17,7 +19,11 @@ public class PlayerHealth : MonoBehaviour
 
     private SpriteRenderer _playerSpriteRenderer;
 
+    public string GameOverScreenScene = "gameover";
 
+    public TMP_Text GameOverText;
+    public Image ScreenCoverImage;
+    public GameObject UI;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +80,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (_health < 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetInt("LastScore", FindObjectOfType<ScoreManager>().GetScore());
+            StartCoroutine(DeathRoutine());
         }
         else
         {
@@ -90,4 +97,46 @@ public class PlayerHealth : MonoBehaviour
     {
         return _health;
     }
+
+    private IEnumerator DeathRoutine()
+    {
+        GameOverText.gameObject.SetActive(true);
+        UI.SetActive(false);
+        ScreenCoverImage.gameObject.SetActive(true);
+
+        Time.timeScale = 0.2f;
+
+        FindObjectOfType<PlayerController>().FreezeInput();
+        var cannons = FindObjectsByType<BasicCannon>(FindObjectsSortMode.None);
+        foreach (var cannon in cannons)
+            cannon.FreezeInput();
+
+		GameOverText.color = new Color(GameOverText.color.r, GameOverText.color.g, GameOverText.color.b, 0);
+		ScreenCoverImage.color = new Color(ScreenCoverImage.color.r, ScreenCoverImage.color.g, ScreenCoverImage.color.b, 0);
+
+		float fadeinDuration = 5;
+        float timer = fadeinDuration;
+
+        while (timer > 0)
+        {
+            timer -= Time.unscaledDeltaTime;
+            GameOverText.color = new Color(GameOverText.color.r, GameOverText.color.g, GameOverText.color.b, 1.0f- (timer/fadeinDuration));
+            yield return null;
+        }
+
+        float fadeOutDuration = 2;
+        timer = fadeOutDuration;
+
+		while (timer > 0)
+		{
+			timer -= Time.unscaledDeltaTime;
+			ScreenCoverImage.color = new Color(ScreenCoverImage.color.r, ScreenCoverImage.color.g, ScreenCoverImage.color.b, 1.0f - (timer / fadeOutDuration));
+			yield return null;
+		}
+
+        Time.timeScale = 1.0f;
+
+		SceneManager.LoadScene(GameOverScreenScene);
+		yield break;
+	}
 }

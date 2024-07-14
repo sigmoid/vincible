@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Wave {
+    public List<GameObject> Patterns;
+}
 public class WaveSpawner : MonoBehaviour
 {
-    public GameObject[] Round1;
-    public GameObject[] Round2;
+    public List<Wave> Rounds;
 
     public GameObject RoundCanvas;
     public TMPro.TMP_Text RoundText;
@@ -16,85 +19,42 @@ public class WaveSpawner : MonoBehaviour
 
     public float WaveLength;
 
-    private float _spawnTimer;
 
     private GameObject PrevWave, CurrentWave;
 
     private int _currentRoundIndex = 0;
 
-    private List<GameObject[]> Rounds;
-
     private int _roundTimer;
-
-    private int NumRounds = 2;
 
     private int _lastWaveId = -1;
 
-    private float _betweenWaveTimer;
 
-    private const float BETWEEN_WAVE_DURATION = 5;
+    private const float BETWEEN_WAVE_DURATION = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         _roundTimer = WavesPerRound;
-        Rounds = new List<GameObject[]>() { Round1, Round2};
-        SpawnWave();
-        ResetTimer();
+        StartCoroutine(WaveSpawnRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_betweenWaveTimer > 0)
-        {
-            _betweenWaveTimer -= Time.deltaTime;
-            if(_betweenWaveTimer <= 0)
-            {
-                RoundCanvas.SetActive(false);
-                _betweenWaveTimer = 0;
-            }
-        }
-        else if (_spawnTimer > 0)
-        {
-            _spawnTimer -= Time.deltaTime;
-
-            if (_spawnTimer <= 0)
-            {
-                SpawnWave();
-                ResetTimer();
-            }
-        }
     }
 
     void SpawnWave()
     {
         var round = Rounds[_currentRoundIndex];
-        _roundTimer--;
 
-        if (_roundTimer <= 0)
-        {
-            _betweenWaveTimer = BETWEEN_WAVE_DURATION;
-            _currentRoundIndex++;
-            RoundCanvas.SetActive(true);
-            int newRound = _currentRoundIndex + 1;
-            RoundText.text = "Round " + newRound;
-            Debug.Log("NEW WAVE: " + _currentRoundIndex);
-            _currentRoundIndex = Mathf.Min(_currentRoundIndex, NumRounds);
-            _lastWaveId = -1;
-            _roundTimer = WavesPerRound;
-            _spawnTimer = 0.1f;
-            return;
-        }
+        int nextId = Random.Range(0, round.Patterns.Count);
 
-        int nextId = Random.Range(0, round.Length);
-
-        while (nextId == _lastWaveId && round.Length > 1)
-            nextId = Random.Range(0, round.Length);
+        while (nextId == _lastWaveId && round.Patterns.Count > 1)
+            nextId = Random.Range(0, round.Patterns.Count);
 
         _lastWaveId = nextId;
 
-		var selectedWave = round[nextId];
+		var selectedWave = round.Patterns[nextId];
 
         if (PrevWave)
         {
@@ -105,8 +65,36 @@ public class WaveSpawner : MonoBehaviour
         CurrentWave = Instantiate(selectedWave, transform.position, Quaternion.identity);
     }
 
-    void ResetTimer()
+    void StartNewRound()
     {
-        _spawnTimer = WaveLength / ScrollSpeed;
+		_currentRoundIndex++;
+		_currentRoundIndex = Mathf.Min(_currentRoundIndex, Rounds.Count - 1);
+		_lastWaveId = -1;
+		_roundTimer = WavesPerRound;
+	}
+
+    private IEnumerator WaveSpawnRoutine()
+    {
+        while (true)
+        {
+			var waveDuration = WaveLength / ScrollSpeed;
+
+            _roundTimer--;
+
+            if (_roundTimer <= 0)
+            {
+				yield return new WaitForSeconds(waveDuration * 2);
+				int newRound = _currentRoundIndex + 1;
+				RoundCanvas.SetActive(true);
+				RoundText.text = "Round " + newRound;
+				yield return new WaitForSeconds(BETWEEN_WAVE_DURATION);
+				RoundCanvas.SetActive(false);
+                StartNewRound();
+                SpawnWave();
+            }
+
+            yield return new WaitForSeconds(waveDuration);
+            SpawnWave();
+        }
     }
 }

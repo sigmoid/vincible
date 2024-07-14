@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private const float VELOCITY_DEAD_ZONE = 0.2f;
 
+    private bool _inputFrozen = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,32 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void FreezeInput()
+    {
+        _inputFrozen = true;
+    }
+
+	private void Update()
+	{
+        if(_inputFrozen)
+            return;
+		var moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+		if (Input.GetButtonDown("Fire2"))
+		{
+			FindObjectOfType<PowerupManager>().ConsumePowerup();
+		}
+
+        UpdateSprite(moveInput);
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
     {
         var moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (_inputFrozen)
+            moveInput = Vector2.zero;
 
         if (transform.position.x > MaxX && moveInput.x > 0)
             moveInput.x = 0;
@@ -44,35 +68,27 @@ public class PlayerController : MonoBehaviour
 		if (transform.position.y < -MaxY && moveInput.y < 0)
 			moveInput.y = 0;
 
-
 		moveInput.Normalize();
 
         var modifier = 1.0f;
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !_inputFrozen)
         {
             modifier *= FireMoveModifier;
-        }
-
-        if(Input.GetButtonDown("Fire2"))
-        {
-            FindObjectOfType<PowerupManager>().ConsumePowerup();
         }
 
         var moveAmount = new Vector3(moveInput.x * LateralSpeed * modifier, moveInput.y * VerticalSpeed * modifier, 0);
 
         _rigidbody.MovePosition(transform.position + moveAmount * Time.fixedUnscaledDeltaTime);
-
-        UpdateSprite();
     }
 
-    void UpdateSprite()
+    void UpdateSprite(Vector2 moveInput)
     {
         float frameDuration = 1.0f / DefaultAnimationFramerate;
         _currentAnimationFrame = Mathf.RoundToInt(Time.unscaledTime / frameDuration) % DefaultAnimationSprites.Length;
-        if (_rigidbody.velocity.x < -VELOCITY_DEAD_ZONE)
+        if (moveInput.x < -VELOCITY_DEAD_ZONE)
             _spriteRenderer.sprite = BankLeftSprite;
-        else if (_rigidbody.velocity.x > VELOCITY_DEAD_ZONE)
+        else if (moveInput.x > VELOCITY_DEAD_ZONE)
             _spriteRenderer.sprite = BankRightSprite;
         else
         {
