@@ -1,9 +1,6 @@
-using Dan.Main;
-using Dan.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.SqlClient;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;

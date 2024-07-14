@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 [System.Serializable]
 public class Wave {
@@ -29,10 +30,11 @@ public class WaveSpawner : MonoBehaviour
     private int _lastWaveId = -1;
 
 
-    private const float BETWEEN_WAVE_DURATION = 1.5f;
+	private const float BETWEEN_WAVE_DURATION = 2.0f;
+	private const float POST_WAVE_COOLDOWN_DURATION = 5.0f;
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         _roundTimer = WavesPerRound;
         StartCoroutine(WaveSpawnRoutine());
@@ -73,6 +75,12 @@ public class WaveSpawner : MonoBehaviour
 		_roundTimer = WavesPerRound;
 	}
 
+    private bool IsScreenClear()
+    {
+        return GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
+    }
+
+
     private IEnumerator WaveSpawnRoutine()
     {
         while (true)
@@ -83,8 +91,12 @@ public class WaveSpawner : MonoBehaviour
 
             if (_roundTimer <= 0)
             {
-				yield return new WaitForSeconds(waveDuration * 2);
-				int newRound = _currentRoundIndex + 1;
+                while (!IsScreenClear())
+                {
+                    yield return null;
+                }
+				yield return new WaitForSeconds(POST_WAVE_COOLDOWN_DURATION);
+				int newRound = _currentRoundIndex + 2;
 				RoundCanvas.SetActive(true);
 				RoundText.text = "Round " + newRound;
 				yield return new WaitForSeconds(BETWEEN_WAVE_DURATION);
@@ -93,7 +105,19 @@ public class WaveSpawner : MonoBehaviour
                 SpawnWave();
             }
 
-            yield return new WaitForSeconds(waveDuration);
+            float timer = waveDuration;
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (IsScreenClear())
+                {
+                    Debug.Log("screen clear");
+                    timer = 0;
+                    break;
+                }
+                yield return null;
+            }
+
             SpawnWave();
         }
     }

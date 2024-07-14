@@ -43,6 +43,7 @@ public class PowerupManager : MonoBehaviour
         _powerupCount ++;
 
         PowerupText.text = "x " + _powerupCount.ToString();
+        FindObjectOfType<PowerupReminder>()?.OnPowerupGained();
     }
 
     public bool ConsumePowerup()
@@ -57,6 +58,7 @@ public class PowerupManager : MonoBehaviour
             FindObjectOfType<PlayerHealth>().StartInvincibility(POPUP_DURATION + 1.0f);
             Time.timeScale = 0.3f;
             ScreenEffectMaterial.SetInt("_isActive", 1);
+            FindObjectOfType<PowerupReminder>()?.OnPowerupConsumed();
             return true;
         }
         return false;

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -119,8 +118,9 @@ public class PlayerHealth : MonoBehaviour
 
         while (timer > 0)
         {
+            float t = Mathf.Sqrt(1.0f - (timer / fadeinDuration));
             timer -= Time.unscaledDeltaTime;
-            GameOverText.color = new Color(GameOverText.color.r, GameOverText.color.g, GameOverText.color.b, 1.0f- (timer/fadeinDuration));
+            GameOverText.color = new Color(GameOverText.color.r, GameOverText.color.g, GameOverText.color.b, t);
             yield return null;
         }
 
