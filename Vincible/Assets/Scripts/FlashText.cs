@@ -25,8 +25,6 @@ public class FlashText : MonoBehaviour
 
         float a = (currentTime > 0.5f) ? 1.0f : 0.0f;
 
-        Debug.Log(a);
-
         Text.color = new Color(Text.color.r, Text.color.g, Text.color.b, a);
     }
 }

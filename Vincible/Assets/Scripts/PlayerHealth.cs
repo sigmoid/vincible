@@ -23,6 +23,9 @@ public class PlayerHealth : MonoBehaviour
     public TMP_Text GameOverText;
     public Image ScreenCoverImage;
     public GameObject UI;
+    public AudioSource MusicSource;
+    public AudioSource HitSource;
+    public AudioSource GongSource;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +79,7 @@ public class PlayerHealth : MonoBehaviour
 
         _health -= damage;
         FindObjectOfType<ScreenShake>().StartShake(0.2f, 0.25f);
+        HitSource.PlayOneShot(HitSource.clip);
 
         if (_health < 0)
         {
@@ -115,10 +119,12 @@ public class PlayerHealth : MonoBehaviour
 
 		float fadeinDuration = 5;
         float timer = fadeinDuration;
+        float originalVolume = MusicSource.volume;
 
         while (timer > 0)
         {
-            float t = Mathf.Sqrt(1.0f - (timer / fadeinDuration));
+			MusicSource.volume = originalVolume * (timer / fadeinDuration);
+			float t = Mathf.Sqrt(1.0f - (timer / fadeinDuration));
             timer -= Time.unscaledDeltaTime;
             GameOverText.color = new Color(GameOverText.color.r, GameOverText.color.g, GameOverText.color.b, t);
             yield return null;
@@ -126,9 +132,11 @@ public class PlayerHealth : MonoBehaviour
 
         float fadeOutDuration = 2;
         timer = fadeOutDuration;
+        originalVolume = GongSource.volume;
 
 		while (timer > 0)
 		{
+            GongSource.volume = originalVolume * (timer / fadeOutDuration);
 			timer -= Time.unscaledDeltaTime;
 			ScreenCoverImage.color = new Color(ScreenCoverImage.color.r, ScreenCoverImage.color.g, ScreenCoverImage.color.b, 1.0f - (timer / fadeOutDuration));
 			yield return null;
