@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Net;
 using Unity.VisualScripting;
+using System.Security.Cryptography;
+using System.Text;
+using System;
+using System.IO;
 
 public class ScoreItem
 {
@@ -48,7 +52,10 @@ public class ScoreDB : MonoBehaviour
     {
         Debug.Log("Start Upload");
         WWWForm form = new WWWForm();
-        form.AddField("v", name + "~" + score);
+        string value = name + "~" + score;
+        var encrypted = Encrypt(value);
+        Debug.Log(encrypted);
+		form.AddField("v", encrypted);
         bool success = false;
         using (UnityWebRequest req = UnityWebRequest.Post(SERVER_URL + "addScore", form)) 
         {
@@ -128,5 +135,28 @@ public class ScoreDB : MonoBehaviour
             i++;
         }
     }
+
+	public static string Encrypt(string plainText)
+	{
+		var key = Encoding.UTF8.GetBytes("jhJFw2HtewxnZP6l4ntpo4h2rTuHkb70");
+		using (Aes aes = Aes.Create())
+		{
+			aes.Key = key;
+			aes.GenerateIV();
+            var iv = aes.IV;
+
+			using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
+			using (var ms = new MemoryStream())
+			{
+				ms.Write(aes.IV, 0, aes.IV.Length);
+				using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+				using (var sw = new StreamWriter(cs))
+				{
+					sw.Write(plainText);
+				}
+				return Convert.ToBase64String(ms.ToArray());
+			}
+		}
+	}
 
 }
