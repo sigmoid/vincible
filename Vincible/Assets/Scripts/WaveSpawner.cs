@@ -111,7 +111,6 @@ public class WaveSpawner : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (IsScreenClear())
                 {
-                    Debug.Log("screen clear");
                     timer = 0;
                     break;
                 }

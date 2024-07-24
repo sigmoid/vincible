@@ -39,6 +39,11 @@ public class EnemyHealth : MonoBehaviour
                 _spriteRenderer.color = Color.white;
             }
         }
+
+        if (transform.position.y < -8)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void Hit(int damage)

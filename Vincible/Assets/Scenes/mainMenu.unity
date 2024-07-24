@@ -4142,7 +4142,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -4.200001, y: -32.100006}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 99.78, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2059112861
 MonoBehaviour:
@@ -4164,7 +4164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WASD
+  m_text: ARROWS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c74f8ef0b0bd314b99d62e666fa7b46, type: 2}
   m_sharedMaterial: {fileID: 5697924009139124475, guid: 1c74f8ef0b0bd314b99d62e666fa7b46, type: 2}
